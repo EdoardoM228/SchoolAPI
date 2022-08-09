@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APISolution.Controllers
 {
-    [Route("api/classmates")]
+    //[Route("api/classmates")]
+    [Route("api/v{version:apiVersion}/classmates")]
     [ApiController]
     public class ClassmatesController : ControllerBase
     {

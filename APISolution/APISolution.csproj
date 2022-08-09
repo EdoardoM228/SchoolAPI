@@ -17,6 +17,11 @@
 		<None Remove="Newtonsoft.Json" />
 		<None Remove="Microsoft.AspNetCore.JsonPatch" />
 		<None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+		<None Remove="Swashbuckle.AspNetCore.Swagger" />
+		<None Remove="Swashbuckle.AspNetCore" />
+		<None Remove="Microsoft.AspNetCore.Mvc.Versioning" />
+		<None Remove="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" />
+		<None Remove="Authentication\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Controllers\" />
@@ -24,6 +29,7 @@
 		<Folder Include="Data\" />
 		<Folder Include="Dtos\" />
 		<Folder Include="Profiles\" />
+		<Folder Include="Authentication\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
@@ -35,5 +41,9 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 	</ItemGroup>
 </Project>
