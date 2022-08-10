@@ -4,12 +4,14 @@ using APISolution.Data;
 using APISolution.Dtos;
 using APISolution.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APISolution.Controllers
 {
     //[Route("api/classmates")]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/classmates")]
     [ApiVersion("2.0")]

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using APISolution.Authentication;
 using APISolution.Data;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
@@ -36,6 +39,8 @@ namespace APISolution
         {
             services.AddDbContext<ClassmateContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("ServerConnection")));
+
+            IConfiguration jwtSection = Configuration.GetSection("Jwt");
 
             services.AddControllers().AddNewtonsoftJson(s =>
             {
@@ -58,8 +63,21 @@ namespace APISolution
                 setupAction.GroupNameFormat = "'v'VV";
             });
 
-            services.AddAuthentication("Basic")
-            .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(setupAction =>
+            {
+                setupAction.RequireHttpsMetadata = false;
+                setupAction.SaveToken = true;
+                setupAction.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = jwtSection.GetSection("Audience").Value,
+                    ValidIssuer = jwtSection.GetSection("Issuer").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.GetSection("Key").Value)),
+                };
+            });
+            //services.AddAuthentication("Basic")
+            //.AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
 
             services.AddScoped<IClassmateRepo, ServerClassmateRepo>();
 
@@ -129,6 +147,7 @@ namespace APISolution
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

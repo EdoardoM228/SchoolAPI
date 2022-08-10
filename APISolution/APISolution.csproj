@@ -22,6 +22,7 @@
 		<None Remove="Microsoft.AspNetCore.Mvc.Versioning" />
 		<None Remove="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" />
 		<None Remove="Authentication\" />
+		<None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Controllers\" />
@@ -45,5 +46,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
 	</ItemGroup>
 </Project>
