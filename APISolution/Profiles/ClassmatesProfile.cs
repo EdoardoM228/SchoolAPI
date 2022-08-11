@@ -14,6 +14,8 @@ namespace APISolution.Profiles
             CreateMap<ClassmateCreatDto, Classmate>();
             CreateMap<ClassmateUpdateDto, Classmate>();
             CreateMap<Classmate, ClassmateUpdateDto>();
+            CreateMap<User, UserReadDto>();
+            CreateMap<UserRegisterDto, User>();
         }
     }
 }

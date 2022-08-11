@@ -76,12 +76,15 @@ namespace APISolution
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.GetSection("Key").Value)),
                 };
             });
+
             //services.AddAuthentication("Basic")
             //.AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
 
             services.AddScoped<IClassmateRepo, ServerClassmateRepo>();
+            services.AddScoped<IUserRepo, ServerUserRepo>();
 
-            var apiVersionDescriptionProvider = services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
+            var apiVersionDescriptionProvider = services.BuildServiceProvider()
+                .GetService<IApiVersionDescriptionProvider>();
 
             services.AddSwaggerGen(setupAction =>
             {

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace APISolution.Models
+namespace APISolution.Dtos
 {
-    public class User
+    public class UserReadDto
     {
-        [Key]
-        public int UserId { get; set; }
-
         [MaxLength(30)]
         [Required]
         public string UserName { get; set; }

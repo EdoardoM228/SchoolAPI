@@ -4,7 +4,7 @@
 
 namespace APISolution.Migrations
 {
-    public partial class InituserDb : Migration
+    public partial class InitUserTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,22 +30,24 @@ namespace APISolution.Migrations
                 oldNullable: true);
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: true),
-                    UserPassword = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    UserPassword = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Phrase",
