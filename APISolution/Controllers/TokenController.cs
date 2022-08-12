@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using APISolution.Data;
+using APISolution.Dtos;
 using APISolution.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace APISolution.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(User _userData)
+        public async Task<IActionResult> Post(UserRegisterDto _userData)
         {
             if (_userData != null && _userData.UserName != null && _userData.UserPassword != null)
             {
