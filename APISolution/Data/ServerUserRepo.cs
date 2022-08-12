@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using APISolution.Models;
 
 namespace APISolution.Data
@@ -20,9 +21,9 @@ namespace APISolution.Data
             _context.Users.Add(user);
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChangesAsync()
         {
-            return (_context.SaveChanges() >= 0);
+            return (await _context.SaveChangesAsync() >= 0);
         }
     }
 }

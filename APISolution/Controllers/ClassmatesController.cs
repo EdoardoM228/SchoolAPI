@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using APISolution.Data;
 using APISolution.Dtos;
 using APISolution.Models;
@@ -26,17 +27,17 @@ namespace APISolution.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ClassmateReadDto>> GetAllClassmates()
+        public async Task<IActionResult> GetAllClassmates()
         {
-            var classmateItems = _repository.GetAllClassmates();
+            var classmateItems = await _repository.GetAllClassmatesAsync();
 
             return Ok(_mapper.Map<IEnumerable<ClassmateReadDto>>(classmateItems));
         }
 
         [HttpGet("{id}", Name = "GetClassmateById")]
-        public ActionResult<ClassmateReadDto> GetClassmateById(int id)
+        public async Task<IActionResult> GetClassmateById(int id)
         {
-            var classmateItem = _repository.GetClassmateById(id);
+            var classmateItem = await _repository.GetClassmateByIdAsync(id);
 
             if (classmateItem != null)
                 return Ok(_mapper.Map<ClassmateReadDto>(classmateItem));
@@ -45,11 +46,11 @@ namespace APISolution.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ClassmateReadDto> CreateClassmate(ClassmateCreatDto classmate)
+        public async Task<IActionResult> CreateClassmate(ClassmateCreatDto classmate)
         {
             var classmateModel = _mapper.Map<Classmate>(classmate);
             _repository.CreateClassmate(classmateModel);
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
 
             var classmateReadDto = _mapper.Map<ClassmateReadDto>(classmateModel);
 
@@ -57,9 +58,9 @@ namespace APISolution.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateClassmate(int id, ClassmateUpdateDto classmateUpdateDto)
+        public async Task<IActionResult> UpdateClassmate(int id, ClassmateUpdateDto classmateUpdateDto)
         {
-            var classmateModelFromRepo = _repository.GetClassmateById(id);
+            var classmateModelFromRepo = _repository.GetClassmateByIdAsync(id).Result;
 
             if (classmateModelFromRepo == null)
                 return NotFound();
@@ -67,7 +68,7 @@ namespace APISolution.Controllers
             _mapper.Map(classmateUpdateDto, classmateModelFromRepo);
 
             _repository.UpdateClassmate(classmateModelFromRepo);
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
 
             return NoContent();
         }
@@ -75,7 +76,7 @@ namespace APISolution.Controllers
         [HttpPatch("{id}")]
         public ActionResult PartialClassmateUpdate(int id, JsonPatchDocument<ClassmateUpdateDto> patchDoc)
         {
-            var classmateModelFromRepo = _repository.GetClassmateById(id);
+            var classmateModelFromRepo = _repository.GetClassmateByIdAsync(id).Result;
 
             if (classmateModelFromRepo == null)
                 return NotFound();
@@ -88,7 +89,7 @@ namespace APISolution.Controllers
 
             _mapper.Map(classmateToPatch, classmateModelFromRepo);
             _repository.UpdateClassmate(classmateModelFromRepo);
-            _repository.SaveChanges();
+            _repository.SaveChangesAsync();
 
             return NoContent();
         }
@@ -96,13 +97,13 @@ namespace APISolution.Controllers
         [HttpDelete("{id}")]
         public ActionResult<ClassmateReadDto> DeleteClassmate(int id)
         {
-            var classmateModelFromRepo = _repository.GetClassmateById(id);
+            var classmateModelFromRepo = _repository.GetClassmateByIdAsync(id).Result;
 
             if (classmateModelFromRepo == null)
                 return NotFound();
 
             _repository.DeleteClassmate(classmateModelFromRepo);
-            _repository.SaveChanges();
+            _repository.SaveChangesAsync();
 
             return NoContent();
         }

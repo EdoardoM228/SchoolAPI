@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using APISolution.Models;
 
 namespace APISolution.Data
@@ -26,9 +27,19 @@ namespace APISolution.Data
             throw new NotImplementedException();
         }
 
+        public void DeleteClassmate(Task<Classmate> classmateModelFromRepo)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Classmate> GetAllClassmates()
         {
             return commands.ToList();
+        }
+
+        public Task<IEnumerable<Classmate>> GetAllClassmatesAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public Classmate GetClassmateById(int id)
@@ -36,12 +47,27 @@ namespace APISolution.Data
             return commands.FirstOrDefault(x => x.Id == id);
         }
 
+        public Task<Classmate> GetClassmateByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool SaveChanges()
         {
             throw new NotImplementedException();
         }
 
+        public Task<bool> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateClassmate(Classmate classmate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateClassmate(Task<Classmate> classmateModelFromRepo)
         {
             throw new NotImplementedException();
         }

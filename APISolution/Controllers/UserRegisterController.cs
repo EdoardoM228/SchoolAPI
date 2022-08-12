@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using APISolution.Data;
 using APISolution.Dtos;
 using APISolution.Models;
@@ -21,11 +22,11 @@ namespace APISolution.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserReadDto> RegisterUser(UserRegisterDto userRegisterDto)
+        public async Task<IActionResult> RegisterUser(UserRegisterDto userRegisterDto)
         {
             var userModel = _mapper.Map<User>(userRegisterDto);
             _repository.RegsiterUser(userModel);
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
 
             var userReadDto = _mapper.Map<UserReadDto>(userModel);
 

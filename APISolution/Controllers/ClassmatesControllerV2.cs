@@ -29,7 +29,7 @@ namespace APISolution.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ClassmateReadDto>> GetAllClassmates()
         {
-            var classmateItems = _repository.GetAllClassmates();
+            var classmateItems = _repository.GetAllClassmatesAsync();
 
             return Ok(_mapper.Map<IEnumerable<ClassmateReadDto>>(classmateItems));
         }

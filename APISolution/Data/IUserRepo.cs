@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using APISolution.Models;
 
 namespace APISolution.Data
@@ -6,7 +7,7 @@ namespace APISolution.Data
     public interface IUserRepo
     {
         void RegsiterUser(User user);
-        bool SaveChanges();
+        Task<bool> SaveChangesAsync();
     }
 }
 
