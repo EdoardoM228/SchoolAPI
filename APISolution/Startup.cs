@@ -77,8 +77,21 @@ namespace APISolution
                 };
             });
 
-            //services.AddAuthentication("Basic")
-            //.AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
+            var jwtSecurityScheme = new OpenApiSecurityScheme
+            {
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Name = "JWT Authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
 
             services.AddScoped<IClassmateRepo, ServerClassmateRepo>();
             services.AddScoped<IUserRepo, ServerUserRepo>();
@@ -88,20 +101,20 @@ namespace APISolution
 
             services.AddSwaggerGen(setupAction =>
             {
+                setupAction.AddSecurityDefinition("Bearer", jwtSecurityScheme);
+
                 foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
                 {
+                    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        { jwtSecurityScheme, Array.Empty<string>() }
+                    });
+
                     setupAction.SwaggerDoc($"ClassmatesOpenAPISpecification{description.GroupName}", new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
                         Title = "School API",
                         Version = description.ApiVersion.ToString()
                     });
-
-                    //setupAction.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme()
-                    //{
-                    //    Type = SecuritySchemeType.Http,
-                    //    Scheme = "basic",
-                    //    Description = "Input your username and password to access this"
-                    //});
 
                     setupAction.DocInclusionPredicate((documentName, ApiDescription) =>
                     {
