@@ -8,6 +8,8 @@ namespace APISolution.Data
     {
         public DbSet<Classmate> Classmates { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         public ClassmateContext(DbContextOptions<ClassmateContext> options) : base(options)
         {
         }

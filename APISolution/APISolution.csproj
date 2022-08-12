@@ -17,6 +17,12 @@
 		<None Remove="Newtonsoft.Json" />
 		<None Remove="Microsoft.AspNetCore.JsonPatch" />
 		<None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+		<None Remove="Swashbuckle.AspNetCore.Swagger" />
+		<None Remove="Swashbuckle.AspNetCore" />
+		<None Remove="Microsoft.AspNetCore.Mvc.Versioning" />
+		<None Remove="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" />
+		<None Remove="Authentication\" />
+		<None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Controllers\" />
@@ -24,16 +30,22 @@
 		<Folder Include="Data\" />
 		<Folder Include="Dtos\" />
 		<Folder Include="Profiles\" />
+		<Folder Include="Authentication\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
 	</ItemGroup>
 </Project>

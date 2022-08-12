@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using APISolution.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace APISolution.Data
 {
-    public class ServerClassmateRepo : IClassmateRepo
+    public class ServerClassmateRepo : IClassmateRepo, IDisposable
     {
-        private readonly ClassmateContext _context;
+        private ClassmateContext _context;
 
         public ServerClassmateRepo(ClassmateContext context)
         {
@@ -32,25 +34,44 @@ namespace APISolution.Data
             _context.Classmates.Remove(classmate);
         }
 
-        public IEnumerable<Classmate> GetAllClassmates()
+        public async Task<IEnumerable<Classmate>> GetAllClassmatesAsync()
         {
-            return _context.Classmates.ToList();
+            return await _context.Classmates.ToListAsync();
         }
 
-        public Classmate GetClassmateById(int id)
+        public async Task<Classmate> GetClassmateByIdAsync(int id)
         {
-            return _context.Classmates.FirstOrDefault(x => x.Id == id);
-        }
-
-        public bool SaveChanges()
-        {
-            return (_context.SaveChanges() >= 0);
+            return await _context.Classmates.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void UpdateClassmate(Classmate classmate)
         {
 
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
+        }
     }
 }
+
 
